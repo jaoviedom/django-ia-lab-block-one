@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Producto, Pedido, Cliente
+from .forms import ProductoForm
 
 def home(request):
     # render() recibe: request, ruta de template, contexto (diccionario)
@@ -26,3 +27,41 @@ def detalle_cliente(request, pk):
     pedidos = cliente.pedidos.select_related("cliente").prefetch_related("productos"). order_by("-fecha")
 
     return render(request, "tienda/detalle_cliente.html", {"cliente": cliente, "pedidos": pedidos})
+
+def crear_producto(request):
+    if request.method == "POST":
+        form = ProductoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("tienda:lista_productos")
+    else:
+        form = ProductoForm()
+    
+    return render(request, "tienda/crear_producto.html", {"form": form})
+
+def editar_producto(request, pk):
+    # Obtenemos el producto o devolvemos 404 si no existe
+    producto = get_object_or_404(Producto, pk=pk)
+
+    if request.method == "POST":
+        # Vinculamos datos de POST y la instancia a editar
+        form = ProductoForm(request.POST, instance=producto)
+        if form.is_valid():
+            form.save()  # esto actualiza 'producto' en BD
+            return redirect("tienda:detalle_producto", pk=producto.pk)
+    else:
+        # GET: mostramos el formulario precargado con datos del producto
+        form = ProductoForm(instance=producto)
+
+    return render(
+        request, "tienda/editar_producto.html", {"form": form, "producto": producto}
+    )
+
+def eliminar_producto(request, pk):
+    producto = get_object_or_404(Producto, pk=pk)
+
+    if request.method == "POST":
+        producto.delete()
+        return redirect("tienda:lista_productos")
+
+    return render(request, "tienda/eliminar_producto.html", {"producto": producto})

@@ -56,34 +56,10 @@ hr {
     margin: 15px 0;
 }
 
-/* Mensajes tipo alert */
-.alert {
-    padding: 12px;
-    border-radius: 6px;
-    margin: 10px 0;
-    font-size: 14px;
-}
-
-.alert-success {
-    background: #e6ffed;
-    border: 1px solid #34c759;
-    color: #1b5e20;
-}
-
-.alert-info {
-    background: #e8f4ff;
-    border: 1px solid #1e90ff;
-    color: #0a3d62;
-}
-
-.alert-warning {
-    background: #fff7e6;
-    border: 1px solid #ffb020;
-    color: #7a4f01;
-}
-
-.alert-error {
-    background: #ffecec;
-    border: 1px solid #ff3b30;
-    color: #721c24;
+.btn {
+    border-radius: 9999px;
+    padding: 8px 16px;
+    background-color: #e84d13;
+    color: #fff;
+    text-decoration:none;
 }
