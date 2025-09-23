@@ -24,7 +24,7 @@ def lista_pedidos(request):
     return render(request, "tienda/lista_pedidos.html", {"pedidos": pedidos})
 
 def detalle_pedido(request, pk):
-    pedido = get_object_or_404(Pedido.objects.select_related("cliente").prefetch_related("productos"), pk=pk)
+    pedido = get_object_or_404(Pedido.objects.select_related("cliente").prefetch_related("items__producto"), pk=pk)
     return render(request, "tienda/detalle_pedido.html", {"pedido": pedido})
 
 def detalle_cliente(request, pk):
