@@ -3,7 +3,7 @@
 Este proyecto es una plantilla base para un laboratorio de Django, orientado a prácticas de desarrollo web y experimentación con inteligencia artificial.
 
 ## Descripción
-El proyecto implementa una aplicación web con Django, estructurada en dos apps principales:
+El proyecto implementa una aplicación web con Django, estructurada en dos partes principales:
 - `core`: Configuración principal del proyecto.
 - `tienda`: Gestión de productos, pedidos y clientes, con vistas, modelos y formularios.
 
@@ -29,6 +29,7 @@ El proyecto implementa una aplicación web con Django, estructurada en dos apps 
 
 ## Contenido de las ramas
 - **main**: Rama principal y estable del proyecto.
+- **class2**: Rama de trabajo para la clase 2, incluye nuevas funcionalidades y experimentos desarrollados durante la sesión.
 - **class3**: Rama de trabajo para la clase 3, incluye nuevas funcionalidades y experimentos desarrollados durante la sesión.
 
 ---
