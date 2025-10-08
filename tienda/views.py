@@ -25,7 +25,21 @@ def lista_pedidos(request):
 
 def detalle_pedido(request, pk):
     pedido = get_object_or_404(Pedido.objects.select_related("cliente").prefetch_related("items__producto"), pk=pk)
-    return render(request, "tienda/detalle_pedido.html", {"pedido": pedido})
+    items = pedido.items.all()
+    total_unidades = sum(it.cantidad for it in items)
+    total_pedido = sum(it.cantidad * it.precio_unitario for it in items)
+    for it in items:
+        it.line_total = it.cantidad * it.precio_unitario
+    return render(
+        request,
+        "tienda/detalle_pedido.html",
+        {
+            "pedido": pedido,
+            "items": items,
+            "total_unidades": total_unidades,
+            "total_pedido": total_pedido,
+        }
+    )
 
 def detalle_cliente(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
@@ -108,7 +122,7 @@ def editar_pedido_items(request, pk):
         pedido_form = PedidoSimpleForm(instance=pedido)
         formset = PedidoItemFormSet(instance=pedido)
     
-    return redirect(request, "tienda/editar_pedido_items.html", {
+    return render(request, "tienda/editar_pedido_items.html", {
         "pedido": pedido,
         "pedido_form": pedido_form,
         "formset": formset,
