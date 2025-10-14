@@ -15,9 +15,6 @@
         {% for form in formset %}
             <div class="fila-editar">
                 {{ form.as_p }}
-                {% if form.instance.pk %}
-                    <label>{{ form.DELETE}} Eliminar este producto</label>
-                {% endif %}
             </div>
         {% endfor %}
     </fieldset>
