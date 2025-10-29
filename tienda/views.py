@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db import transaction
 from django.db.models import Sum, F
+from django.views.decorators.http import require_GET #
 from .models import Producto, Pedido, Cliente
 from .forms import ProductoForm, ClienteForm, PedidoSimpleForm, PedidoItemFormSet
+from core.ia.buscador import buscar_productos #
 
 def home(request):
     # render() recibe: request, ruta de template, contexto (diccionario)
@@ -198,3 +200,20 @@ def editar_pedido_items(request, pk):
             "formset": formset,
         },
     )
+
+@require_GET
+def buscar_view(request):
+  q = request.GET.get("q", "")
+  if q:
+    resultados = buscar_productos(q)
+  else:
+    resultados = []
+
+  return render(
+     request,
+     "tienda/buscar.html",
+     {
+        "q": q,
+        "resultados": resultados,
+     }
+  )

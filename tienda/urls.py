@@ -24,5 +24,7 @@ urlpatterns = [
     # Pedidos
     path("pedidos/nuevo-items/", views.crear_pedido_items, name="crear_pedido_items"),
     path("pedidos/<int:pk>/editar-items/", views.editar_pedido_items, name="editar_pedido_items"),
-    # path("pedidos/<int:pk>/eliminar/", views.eliminar_pedido, name="eliminar_pedido"),
+    
+    # Búsqueda
+    path("buscar/", views.buscar_view, name="buscar"),
 ]
